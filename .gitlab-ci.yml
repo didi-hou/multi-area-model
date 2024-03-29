@@ -17,21 +17,39 @@ run_notebooks:
 
   before_script:
     # - cat /mnt/ebrains_env/ebrains-23.09/bin/load_env.sh
+    # Use the ebrains-23.09 environment
     - . /mnt/ebrains_env/ebrains-23.09/bin/load_env.sh
-
+    # Use the ebrains-experimental environment
+    # - . /mnt/ebrains_env/ebrains-experimental/bin/load_env.sh
 
   script:
     - echo "Starting testing..."
     # List all kernels
     # - jupyter kernelspec list
+
+    # Test multi-area-model.ipynb
     - echo "Testing multi-area-model.ipynb..."
-    # Replace all ebrains-23.09 with python3 as the kernel ebrains-23.09 is now actually named as python3
+
+    # Replace all ebrains-23.09 with python3 as the kernel ebrains-23.09 is now actually named as python3: test using ebrians-23.09
     - sed -i -e "s/ebrains-23.09/python3/" multi-area-model.ipynb
+
+    # Replace all ebrains-23.09 with ebrains-experimental: test using ebrains-experimental
+    # - sed -i -e "s/ebrains-23.09/ebrains-experimental/" multi-area-model.ipynb
+
     # Convert jupyter notebook to python file and execute it
     - jupyter nbconvert --to notebook --execute ./multi-area-model.ipynb
+
+    # Test M2E_statistical_test.ipynb
     - echo "Testing M2E_statistical_test.ipynb..."
-    # Replace all ebrains-23.09 with python3 as the kernel ebrains-23.09 is now actually named as python3
+
+    # Replace all ebrains-23.09 with python3 as the kernel ebrains-23.09 is now actually named as python3: test using ebrians-23.09
     - sed -i -e "s/ebrains-23.09/python3/" M2E_statistical_test.ipynb
+
+    # Replace all ebrains-23.09 with ebrains-experimental: test using ebrains-experimental
+    # - sed -i -e "s/ebrains-23.09/ebrains-experimental/" M2E_statistical_test.ipynb
+
     # Convert jupyter notebook to python file and execute it
     - jupyter nbconvert --to notebook --execute ./M2E_statistical_test.ipynb
+
+    # Test are finished and passed
     - echo "Testing are finished and passed!"
